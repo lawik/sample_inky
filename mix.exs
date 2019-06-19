@@ -39,7 +39,9 @@ defmodule SampleInky.MixProject do
       {:shoehorn, "~> 0.4"},
       {:ring_logger, "~> 0.6"},
       {:toolshed, "~> 0.2"},
+      # {:inky, "~> 0.0.1"},
       {:inky, path: "../inky"},
+      {:inky_host_dev, path: "../inky_host_dev", targets: :host, only: :dev},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},

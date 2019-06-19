@@ -23,7 +23,7 @@ defmodule SampleInky.Application do
 
   def children(_target) do
     [
-      # Starts a worker by calling: SampleInky.Worker.start_link(arg)
+      # Starts a worker by calling: SampleInky.SelfTest.start_link(arg)
       {SampleInky.SelfTest, nil}
     ]
   end
