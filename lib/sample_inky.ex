@@ -13,6 +13,7 @@ defmodule SampleInky.SelfTest do
     {:ok, pid } = Inky.start_link(%{
       type: :phat,
       accent: :red,
+      # Use the configured module if available, otherwise RpiHAL
       hal_mod: Application.get_env(:inky, :hal_module, Inky.RpiHAL)
     })
 
@@ -23,7 +24,7 @@ defmodule SampleInky.SelfTest do
         x > w / 2 ->
           cond do
             y > h / 2 ->
-              :red
+              :accent
 
             true ->
               cond do
@@ -42,58 +43,9 @@ defmodule SampleInky.SelfTest do
           end
       end
     end)
-    # state =
-    #   Enum.reduce(0..(state.display.height - 1), state, fn y, state ->
-    #     Enum.reduce(0..(state.display.width - 1), state, fn x, state ->
-    #       color =
-    #         cond do
-    #           x > state.display.width / 2 ->
-    #             cond do
-    #               y > state.display.height / 2 ->
-    #                 :red
-
-    #               true ->
-    #                 cond do
-    #                   rem(x, 2) == 0 -> :white
-    #                   true -> :black
-    #                 end
-    #             end
-
-    #           true ->
-    #             cond do
-    #               y > state.display.height / 2 ->
-    #                 :black
-
-    #               true ->
-    #                 :white
-    #             end
-    #         end
-
-    #       # Inky.set_pixel(state, x, y, color)
-    #     end)
-    #   end)
 
     IO.puts("Pushing update to display...")
-    IO.puts("(it should start blinking and take quite a few seconds)")
-    # Inky.show(pid)
 
-    # Striped
-
-    # state =
-    #   Enum.reduce(0..(state.display.height - 1), state, fn y, state ->
-    #     Enum.reduce(0..(state.display.width - 1), state, fn x, state ->
-    #       color =
-    #         cond do
-    #           rem(x, 2) == 0 -> :white
-    #           true -> :black
-    #         end
-
-    #       Inky.set_pixel(state, x, y, color)
-    #     end)
-    #   end)
-
-    # state = Inky.show(state)
-    :timer.sleep(10000)
     {:ok, pid}
   end
 end
