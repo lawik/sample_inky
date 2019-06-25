@@ -9,12 +9,12 @@ defmodule SampleInky.SelfTest do
   @spec init(any) :: {:ok, pid}
   def init(_) do
     IO.puts("Initializing inky...")
+
     {:ok, pid } = Inky.start_link(%{
       type: :phat,
       accent: :red,
-      command_mod: Application.get_env(:inky, :command_module)
+      hal_mod: Application.get_env(:inky, :hal_module, Inky.RpiHAL)
     })
-    # state = Inky.init(:phat, :red)
 
     IO.puts("Rendering quadrants pixel data...")
 

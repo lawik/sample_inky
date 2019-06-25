@@ -1,4 +1,4 @@
 use Mix.Config
 
 config :inky,
-  command_module: InkyHostDev.Commands
+  hal_module: InkyHostDev.HAL
