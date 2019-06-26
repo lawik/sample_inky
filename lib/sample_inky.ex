@@ -10,41 +10,43 @@ defmodule SampleInky.SelfTest do
   def init(_) do
     IO.puts("Initializing inky...")
 
-    {:ok, pid } = Inky.start_link(%{
-      type: :phat,
-      accent: :red,
-      # Use the configured module if available, otherwise RpiHAL
-      hal_mod: Application.get_env(:inky, :hal_module, Inky.RpiHAL)
-    })
+    {:ok, pid} =
+      Inky.start_link(%{
+        type: :phat,
+        accent: :red,
+        # Use the configured module if available, otherwise RpiHAL
+        hal_mod: Application.get_env(:inky, :hal_module, Inky.RpiHAL)
+      })
 
-    IO.puts("Rendering quadrants pixel data...")
+    IO.puts("Rendering quadrants pixel data to display...")
 
     Inky.set_pixels(pid, fn x, y, w, h, _acc ->
-      cond do
-        x > w / 2 ->
-          cond do
-            y > h / 2 ->
+      x_high = x > w / 2
+      y_high = y > h / 2
+      x_odd = rem(x, 2) == 0
+
+      case x_high do
+        true ->
+          case y_high do
+            true ->
               :accent
 
-            true ->
-              cond do
-                rem(x, 2) == 0 -> :white
-                true -> :black
+            false ->
+              case x_odd do
+                true -> :white
+                false -> :black
               end
           end
 
-        true ->
-          cond do
-            y > h / 2 ->
-              :black
-
-            true ->
-              :white
+        false ->
+          case y_high do
+            true -> :black
+            false -> :white
           end
       end
     end)
 
-    IO.puts("Pushing update to display...")
+    IO.puts("Rendered")
 
     {:ok, pid}
   end
