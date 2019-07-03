@@ -11,9 +11,8 @@ defmodule SampleInky.SelfTest do
     IO.puts("Initializing inky...")
 
     {:ok, pid} =
-      Inky.start_link(%{
-        type: :phat,
-        accent: :red,
+      Inky.start_link(:phat, :red, %{
+        border: :accent,
         # Use the configured module if available, otherwise RpiHAL
         hal_mod: Application.get_env(:inky, :hal_module, Inky.RpiHAL)
       })
