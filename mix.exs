@@ -6,7 +6,7 @@ defmodule SampleInky.MixProject do
   def project do
     [
       app: :sample_inky,
-      version: "0.1.0",
+      version: "1.0.0",
       elixir: "~> 1.8",
       archives: [nerves_bootstrap: "~> 1.5"],
       start_permanent: Mix.env() == :prod,
@@ -39,8 +39,8 @@ defmodule SampleInky.MixProject do
       {:shoehorn, "~> 0.4"},
       {:ring_logger, "~> 0.6"},
       {:toolshed, "~> 0.2"},
-      {:inky, github: "pappersverk/inky"},
-      {:inky_host_dev, github: "pappersverk/inky_host_dev", targets: :host, only: :dev},
+      {:inky, "~> 1.0.0"},
+      {:inky_host_dev, "~> 1.0.0", targets: :host, only: :dev},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.6", targets: @all_targets},
